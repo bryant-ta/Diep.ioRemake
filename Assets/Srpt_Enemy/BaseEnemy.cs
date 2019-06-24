@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+// Base for any enemy. tag with Enemy
 public class BaseEnemy : Damageable
 {
     public float moveSpeed;

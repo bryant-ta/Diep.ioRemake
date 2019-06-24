@@ -1,16 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [System.Serializable]
 public class Damageable : MonoBehaviour
 {
-    [SerializeField] int hp;                         // Health
+    [SerializeField] int hp;        // Health
     [SerializeField] int maxhp;
-    int shd;                        // Sheild
+    int shd;                        // Shield
     int maxshd;
-    private float shdDelay;          // Seconds until shield starts regen
-    private float shdRegen;          // Shield amt to regen each second
+    private float shdDelay;         // Seconds until shield starts regen
+    private float shdRegen;         // Shield amt to regen each second
 
     float shdTimer;
 
@@ -72,7 +70,7 @@ public class Damageable : MonoBehaviour
     {
         if (Time.time > shdTimer && shd < maxshd)
         {
-            AddShd((int)Mathf.Floor(Time.deltaTime * shdRegen));
+            AddShd(Mathf.FloorToInt(Time.deltaTime * shdRegen));
         }
     }
 

@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Bullet : Projectile
 {
+    // Bullet Attributes
     public float moveSpeed;
     public float lifetime;
 
@@ -21,17 +20,17 @@ public class Bullet : Projectile
     {
         if (col.GetComponent<Damageable>() != null)
         {
-            if (fromPlayer && col.tag == "Enemy")
+            if (fromPlayer && col.tag == "Enemy")           // Hit Enemy
             {
-                col.GetComponent<Damageable>().DoDamage(parentGun.attackDmg);
+                col.GetComponent<Damageable>().DoDamage(dmg);
             }
-            else if (!fromPlayer && col.tag == "Player")
+            else if (!fromPlayer && col.tag == "Player")    // Hit Player
             {
-                col.GetComponent<Damageable>().DoDamage(parentGun.attackDmg);
+                col.GetComponent<PlayerHealth>().DoDamage(dmg);
             }
             else
             {
-                col.GetComponent<Damageable>().DoDamage(parentGun.attackDmg);
+                col.GetComponent<Damageable>().DoDamage(dmg);
             }
         }
     }

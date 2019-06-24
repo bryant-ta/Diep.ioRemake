@@ -15,9 +15,6 @@ public class PlayerAttack : MonoBehaviour
     Gun secondary;
     Camera viewCamera;
 
-    float nextPriFire;
-    float nextSecFire;
-
     private void Awake()
     {
         
@@ -29,14 +26,13 @@ public class PlayerAttack : MonoBehaviour
 
         viewCamera = Camera.main;
     }
-
+    
     private void Update()
     {
         // Shoot Primary
-        if (Input.GetButton("Fire1") && Time.time > nextPriFire)
+        if (Input.GetButton("Fire1"))
         {
-            nextPriFire = Time.time + priCooldown * primary.cooldownMult;
-            primary.Fire();
+            primary.Fire(1, priCooldown);
         }
 
         // Rotate gun        

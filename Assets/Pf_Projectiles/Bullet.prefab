@@ -121,5 +121,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentGun: {fileID: 0}
   fromPlayer: 0
+  dmg: 0
   moveSpeed: 10
-  lifetime: 2
+  lifetime: 10

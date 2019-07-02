@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class PlayerHealth : Damageable
 {
+    public float hpRegen;
+
     Image hpBar;
     Text hpTxt;
 
@@ -14,6 +16,14 @@ public class PlayerHealth : Damageable
 
         hpBar.fillAmount = getHP() / getMaxHP();
         hpTxt.text = getHP() + "/" + getMaxHP();
+    }
+
+    //float startRegen;
+    private void Update()
+    {
+        // HP Regen
+        int regenAmt = (int)(getMaxHP() * (hpRegen / 100));
+        AddHP(regenAmt);
     }
 
     public new void DoDamage(int amt)

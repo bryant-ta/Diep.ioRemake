@@ -9,6 +9,11 @@ public class BaseEnemyMovement : MonoBehaviour
 
     void Awake()
     {
+        Setup();
+    }
+
+    public void Setup()
+    {
         rb = GetComponent<Rigidbody2D>();
         enemy = GetComponent<BaseEnemy>();
     }

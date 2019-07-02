@@ -5,26 +5,28 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     // Player Attack Attributes
-    public float priCooldown;       // Primary Cooldown
-    public float secCooldown;       // Primary Cooldown
+    public int priDmg;
+    public float priPSpd;
+    public float priCD;
+    public float priAcc;
+    public float priRec;
+    //public float priPen; add penetration later?
 
-    public GameObject primaryGunObject;
-    public GameObject secondaryGunObject;
+    public GameObject initTank;
+    public GameObject tank;
 
-    Gun primary;
-    Gun secondary;
+    List<Gun> guns;
     Camera viewCamera;
 
-    private void Awake()
-    {
-        
-    }
+    bool doFireDelay;
+    string[] tanksWithFireDelay = { "Twin", "Spread_Shot"};
 
     private void Start()
     {
-        Equip(primaryGunObject);
-
         viewCamera = Camera.main;
+        guns = new List<Gun>();
+
+        Equip(initTank);
     }
     
     private void Update()
@@ -32,7 +34,15 @@ public class PlayerAttack : MonoBehaviour
         // Shoot Primary
         if (Input.GetButton("Fire1"))
         {
-            primary.Fire(1, priCooldown);
+            if (!doFireDelay)
+            {
+                foreach (Gun gun in guns)
+                {
+                    gun.Fire(priDmg, priCD, priAcc, priRec, priPSpd, 1);
+                }
+            }
+            else
+                StartCoroutine(FireMyGuns());
         }
 
         // Rotate gun        
@@ -41,15 +51,54 @@ public class PlayerAttack : MonoBehaviour
 
         float ang = Vector2.Angle(Vector2.right, shootDir);
         if (mousePos.y < transform.position.y) ang = ang + (2 * (180 - ang));
-        primaryGunObject.transform.rotation = Quaternion.Euler(0, 0, ang);
+        tank.transform.rotation = Quaternion.Euler(0, 0, ang);
     }
 
-    void Equip(GameObject gun)
+    void Equip(GameObject upgrade)
     {
+        if (tank != null) Destroy(tank);
+        guns.Clear();
+
         // This order to ensure instance attributes are set, not prefabs
-        GameObject gunInst = Instantiate(gun, transform.position, transform.rotation, gameObject.transform);
-        gunInst.GetComponent<Gun>().Setup(gameObject);
-        primaryGunObject = gunInst;
-        primary = primaryGunObject.GetComponent<Gun>();
+        GameObject upgradeInst = Instantiate(upgrade, transform.position, transform.rotation, gameObject.transform);
+        tank = upgradeInst;
+        foreach (Transform gun in tank.transform)
+        {
+            guns.Add(gun.GetComponent<Gun>());
+            gun.GetComponent<Gun>().Setup(gameObject);
+        }
+
+        doFireDelay = false;
+        for (int i = 0; i < tanksWithFireDelay.Length; i++)
+        {
+            if (upgrade.name == tanksWithFireDelay[i])
+            {
+                doFireDelay = true;
+            }
+        }
+    }
+
+    IEnumerator FireMyGuns()
+    {
+        //float fireDelay = guns[0].getAtt(guns[0].baseCooldown, priCD)/2;
+        if (tank.name.Contains("Spread_Shot"))
+        {
+            guns[0].Fire(priDmg, priCD, priAcc, priRec, priPSpd, 1);
+            yield return new WaitForSeconds(.1f);
+            for (int i = 1; i < guns.Count; i += 2)
+            {
+                guns[i].Fire(priDmg, priCD, priAcc, priRec, priPSpd, 1);
+                guns[i + 1].Fire(priDmg, priCD, priAcc, priRec, priPSpd, 1);
+                yield return new WaitForSeconds(.1f);
+            }
+        }
+        else
+        {
+            foreach (Gun gun in guns)
+            {
+                gun.Fire(priDmg, priCD, priAcc, priRec, priPSpd, 1);
+                yield return new WaitForSeconds(.2f);
+            }
+        }
     }
 }

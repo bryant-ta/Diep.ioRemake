@@ -7,40 +7,34 @@ public class Bullet : Projectile
     [ShowOnly] public float lifetime;
 
     Vector2 dir;
+    public bool isCaltrop;
 
     public void Setup(GameObject caller, int dmg, float accuracy, float moveSpeed, float lifetime)
     {
         base.Setup(caller, dmg, accuracy);
+        this.moveSpeed = moveSpeed;
         this.lifetime = lifetime;
-        dir = (Quaternion.Euler(0, 0, shotAngle) * Vector2.right);
+        dir = (Quaternion.Euler(0, 0, shotAngle) * parentGun.getBarrel().transform.right);
+
+        if (isCaltrop) GetComponent<Rigidbody2D>().AddForce(dir * moveSpeed * 10);
 
         Destroy(gameObject, lifetime);
     }
 
     private void Update()
     {
-        transform.Translate(dir * moveSpeed * Time.deltaTime, Space.World);
+        if (!isCaltrop)
+        {
+            transform.Translate(dir * moveSpeed * Time.deltaTime, Space.World);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.GetComponent<Damageable>() != null)
+        if (col.GetComponent<PlayerHealth>() != null && col.gameObject != parentGun.owner)
         {
-            if (fromPlayer && col.tag == "Enemy")           // Hit Enemy
-            {
-                col.GetComponent<Damageable>().DoDamage(dmg);
-                Destroy(gameObject);
-            }
-            else if (!fromPlayer && col.tag == "Player")    // Hit Player
-            {
-                col.GetComponent<PlayerHealth>().DoDamage(dmg);
-                Destroy(gameObject);
-            }
-            else if (col.tag == "Environment")
-            {
-                col.GetComponent<Damageable>().DoDamage(dmg);
-                Destroy(gameObject);
-            }
+            col.GetComponent<PlayerHealth>().DoDamage(dmg);
+            Destroy(gameObject);
         }
 
         if (col.tag == "Environment")
@@ -48,4 +42,6 @@ public class Bullet : Projectile
             Destroy(gameObject);
         }
     }
+
+    public Vector2 getMoveDir() { return dir; }
 }

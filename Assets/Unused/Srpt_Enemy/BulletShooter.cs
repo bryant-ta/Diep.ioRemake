@@ -5,13 +5,17 @@ public class BulletShooter : BaseEnemy
 {
     // BulletShooter Attributes
     public float fireCooldownFac = 1;       // How often Enemy decides to fire
-    public float accuracyFac = 1;
 
     // Equipped Guns attribute
-    public float gunAttackDmgMult = 1;  // Multiplier on Gun damage
-    public float gunCooldownMult = 1;   // Multiplier on Gun firerate
+    public float gunAttackDmgFac = 1;   // Multiplier on Gun damage
+    public float gunCooldownFac = 1;    // Multiplier on Gun firerate
+    public float gunAccuracyFac = 1;    // Multiplier on Gun accuracy
+    public float bulletSpeedFac = 1;    // Multiplier on Bullet Speed
+    public float bulletLifeTimeFac = 1; // Multiplier on Bullet Lifetime
 
     public Gun[] guns;
+
+    float nextFire;
 
     private void Awake()
     {
@@ -25,24 +29,25 @@ public class BulletShooter : BaseEnemy
         {
             gun.Setup(gameObject);
         }
+        nextFire = Constants.ACTIVATE_ENEMY_DELAY + Random.Range(0f, Constants.ENEMY_FIRE_RANDOM_DELAY);
     }
 
-    float nextFire = Constants.ACTIVATE_ENEMY_DELAY;
     private void Update()
     {
         if (Time.time > nextFire)
         {
             FireGuns();
-            nextFire = Time.time + fireCooldownFac + Random.Range(0f, Constants.ENEMY_FIRE_RANDOM_DELAY);
+            nextFire = Time.time + 0.1f;
+            //nextFire = Time.time + Random.Range(0f, Constants.ENEMY_FIRE_RANDOM_DELAY);
         }
     }
 
     public int FireGuns()
     {
         int numGunsFired = 0;
-        for (int i = 0; i < guns.Length; i++)
+        foreach (Gun gun in guns)
         {
-            if (guns[i].Fire(gunAttackDmgMult, gunCooldownMult, accuracyFac) == 0)
+            if (gun.Fire(gunAttackDmgFac, gunCooldownFac, gunAccuracyFac, bulletSpeedFac, bulletLifeTimeFac) == 0)
                 numGunsFired++;
         }
         return numGunsFired;

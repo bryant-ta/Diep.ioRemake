@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6327637526237991250}
   - component: {fileID: 6327637526237991261}
+  - component: {fileID: 1022562593234723647}
   m_Layer: 0
-  m_Name: Cannon
+  m_Name: Rifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 6327637526237991251}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4, y: 0.9, z: 1}
   m_Children:
   - {fileID: 6327637527975320793}
   m_Father: {fileID: 0}
@@ -44,17 +45,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 560e6932b09170f449727f0f1b07d3ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseAttackDmg: 5
-  baseCooldown: 2
-  baseAccuracy: 80
-  baseRecoil: 4
-  baseBulletSpeed: 1
-  baseBulletLifetime: 20
-  name: Cannon
+  baseAttackDmg: 4
+  baseCooldown: 3
+  baseAccuracy: 95
+  baseRecoil: 1.2
+  baseBulletSpeed: 10
+  baseBulletLifetime: 30
+  name: Rifle
   owner: {fileID: 0}
-  projectile: {fileID: 4338534801041453041, guid: c48b1ac4afbe533418ce50c5492f6657,
+  projectile: {fileID: 4338534801041453041, guid: a2309f29ab17a7743a72b2b2ad917cda,
     type: 3}
   projSpawn: {fileID: 6327637527800736956}
+--- !u!114 &1022562593234723647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6327637526237991251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ccc8c3d41ab3a0428f57b0db95bf9c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  expandAmt: 3
 --- !u!1 &6327637527800736957
 GameObject:
   m_ObjectHideFlags: 0
@@ -79,7 +93,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6327637527800736957}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: 0.7, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6327637527975320793}
@@ -111,7 +125,7 @@ Transform:
   m_GameObject: {fileID: 6327637527975320798}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.3, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.7, z: 1}
+  m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children:
   - {fileID: 6327637527800736956}
   m_Father: {fileID: 6327637526237991250}

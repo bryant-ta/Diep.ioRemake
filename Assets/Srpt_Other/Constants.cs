@@ -7,9 +7,9 @@ public class Constants : MonoBehaviour
     // [Description]_[Property]_[Type]
     // ex) [ENEMY_FIRE]_[RANDOM]_[DELAY]
     // All delays in seconds
-    public static float ACTIVATE_GUN_DELAY = 0;
+    public static float ACTIVATE_GUN_DELAY = 1;
     public static float ACTIVATE_ENEMY_DELAY = 0;
-    public static float ENEMY_FIRE_RANDOM_DELAY = 0;
+    public static float ENEMY_FIRE_RANDOM_DELAY = 1.5f;
 
     public static Vector2[] DIAGONAL_VECTORS = new[]
         {new Vector2(1,1).normalized,      // 0 - TR

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Poly : BaseEnemy
+public class Poly : Damageable
 {
     public Sprite[] body;
 
@@ -8,7 +8,7 @@ public class Poly : BaseEnemy
 
     private void Awake()
     {
-        base.Setup();
+        base.Setup(getMaxHP());
         sr = GetComponent<SpriteRenderer>();
 
         sr.sprite = body[Random.Range(0, body.Length)];

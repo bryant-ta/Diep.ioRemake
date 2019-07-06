@@ -5,21 +5,25 @@ public class Damageable : MonoBehaviour
 {
     [SerializeField] int hp;        // Health
     [SerializeField] int maxhp;
+    [SerializeField] int exp;
 
-    public void Setup(int maxhp, int maxshd = 0)
+    public void Setup(int maxhp)
     {
         hp = maxhp;
         this.maxhp = maxhp;
     }
 
-    public void DoDamage(int amt)
+    // Return 1 on death, 0 otherwise
+    public int DoDamage(int amt)
     {
         // Do damage, then check if death
         hp -= amt;
         if (hp <= 0)
         {
             Die();
+            return 1;
         }
+        return 0;
     }
     
     // Health Functions
@@ -45,4 +49,5 @@ public class Damageable : MonoBehaviour
 
     public int getHP() { return hp; }
     public int getMaxHP() { return maxhp; }
+    public int getExp() { return exp; }
 }

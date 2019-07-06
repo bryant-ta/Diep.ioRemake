@@ -32,13 +32,26 @@ public class Bullet : Projectile
 
     private void OnTriggerEnter2D(Collider2D col)
     {
+        // Hit Player
         if (col.GetComponent<PlayerHealth>() != null && col.gameObject != parentGun.owner)
         {
-            col.GetComponent<PlayerHealth>().DoDamage(dmg);
+            if(col.GetComponent<PlayerHealth>().DoDamage(dmg) == 1) // A kill
+            {
+                parentGun.owner.GetComponent<PlayerLevel>().AddExp(col.GetComponent<Damageable>().getExp());
+            }
+            Destroy(gameObject);
+        } 
+        // Hit Poly
+        else if(col.GetComponent<Damageable>() != null)
+        {
+            if (col.GetComponent<Damageable>().DoDamage(dmg) == 1)
+            {
+                parentGun.owner.GetComponent<PlayerLevel>().AddExp(col.GetComponent<Damageable>().getExp());
+            }
             Destroy(gameObject);
         }
-
-        if (col.tag == "Environment")
+        // Hit wall
+        else if (col.tag == "Environment")
         {
             Destroy(gameObject);
         }

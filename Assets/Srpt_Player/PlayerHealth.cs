@@ -26,10 +26,11 @@ public class PlayerHealth : Damageable
         AddHP(regenAmt);
     }
 
-    public new void DoDamage(int amt)
+    public new int DoDamage(int amt)
     {
-        base.DoDamage(amt);
+        int ret = base.DoDamage(amt);
         hpBar.fillAmount = ((float)getHP() / (float)getMaxHP());
         hpTxt.text = getHP() + "/" + getMaxHP();
+        return ret;
     }
 }

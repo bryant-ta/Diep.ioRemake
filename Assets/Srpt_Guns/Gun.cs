@@ -24,6 +24,7 @@ public class Gun : MonoBehaviour
     GameObject barrel;
 
     bool canFire = false;
+    public bool isSpawner;
 
     public void Setup(GameObject owner, string name = "Gun")
     {
@@ -52,10 +53,13 @@ public class Gun : MonoBehaviour
         if (canFire)
         {
             GameObject projObjInst = Instantiate(projectile, projSpawn.position, transform.rotation);
-            if (projObjInst == null) return -1;
-            projObjInst.GetComponent<Bullet>().Setup(gameObject, attackDmg, accuracy, movespeed, lifetime);
+            //if (projObjInst == null) return -1;
+
+            if (projObjInst.GetComponent<Bullet>() != null)
+                projObjInst.GetComponent<Bullet>().Setup(gameObject, attackDmg, accuracy, movespeed, lifetime);
             
-            owner.GetComponent<Rigidbody2D>().AddForce(-projObjInst.GetComponent<Bullet>().getMoveDir() * recoil * 10);
+            if (owner.GetComponent<Rigidbody2D>() != null)
+                owner.GetComponent<Rigidbody2D>().AddForce(-projObjInst.GetComponent<Bullet>().getMoveDir() * recoil * 10);
 
             nextFire = Time.time + cooldown;
             canFire = false;

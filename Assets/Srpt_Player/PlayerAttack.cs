@@ -19,7 +19,7 @@ public class PlayerAttack : MonoBehaviour
     Camera viewCamera;
 
     bool doFireDelay;
-    string[] tanksWithFireDelay = { "Twin", "Spread_Shot"};
+    string[] tanksWithFireDelay = { "Twin", "Spread_Shot", "Predator", "Streamliner", "Gunner", "Auto_Gunner"};
 
     private void Start()
     {
@@ -62,10 +62,19 @@ public class PlayerAttack : MonoBehaviour
         // This order to ensure instance attributes are set, not prefabs
         GameObject upgradeInst = Instantiate(upgrade, transform.position, transform.rotation, gameObject.transform);
         tank = upgradeInst;
+
         foreach (Transform gun in tank.transform)
         {
-            guns.Add(gun.GetComponent<Gun>());
-            gun.GetComponent<Gun>().Setup(gameObject);
+            if (gun.GetComponent<Spawner>() != null)
+            {
+                gun.GetComponent<Spawner>().Setup(gameObject, priDmg, priCD, priPSpd);
+                continue;
+            }
+            else if (gun.GetComponent<Gun>() != null)
+            {
+                guns.Add(gun.GetComponent<Gun>());
+                gun.GetComponent<Gun>().Setup(gameObject);
+            }
         }
 
         doFireDelay = false;

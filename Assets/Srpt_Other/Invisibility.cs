@@ -2,30 +2,54 @@
 
 public class Invisibility : MonoBehaviour
 {
-    public float invisTime; // Time to go fully invis
+    public float invisTime;     // Time to go fully invis
 
-    Damageable dm;
+    Vector3 lastPos;
     SpriteRenderer sp_body;
     SpriteRenderer sp_barrel;
+    SpriteRenderer sp_extra;
 
-    int curHP;
+    bool isLandmine;
 
     void Awake()
     {
-        dm = GetComponent<Damageable>();
         sp_body = GetComponent<SpriteRenderer>();
-        sp_barrel = transform.GetChild(0).GetChild(1).GetComponent<SpriteRenderer>();
-        curHP = dm.getHP();
+        if (gameObject.name.Contains("Landmine")) isLandmine = true;
+        if (isLandmine)
+        {
+            sp_barrel = transform.GetChild(0).GetComponent<SpriteRenderer>();
+            sp_extra = transform.GetChild(1).GetComponent<SpriteRenderer>();
+        }
+        else 
+        {
+            sp_barrel = transform.GetChild(0).GetChild(1).GetComponent<SpriteRenderer>();
+        }
     }
 
     float t;
     private void Update()
     {
+        // Do invisibility
         t += Time.deltaTime;
         float t_percent = t / invisTime;
-        Color c = sp_body.color;
-        c.a = Mathf.Lerp(1, 0, t);
-        sp_body.color = c;
-        sp_barrel.color = c;
+        Color c1 = sp_body.color;
+        Color c2 = sp_barrel.color;
+        c1.a = Mathf.Lerp(1, 0, t_percent);
+        c2.a = Mathf.Lerp(1, 0, t_percent);
+        sp_body.color = c1;
+        sp_barrel.color = c2;
+
+        if (isLandmine)
+        {
+            sp_extra.color = c2;
+        }
+
+        // Reset invis timer
+        if (transform.position != lastPos)
+        {
+            t = 0;
+            t_percent = 0;
+            lastPos = transform.position;
+        }
     }
 }

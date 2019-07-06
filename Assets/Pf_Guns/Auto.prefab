@@ -132,7 +132,7 @@ MonoBehaviour:
   baseRecoil: 0.2
   baseBulletSpeed: 1
   baseBulletLifetime: 5
-  name: Gun
+  name: Auto
   owner: {fileID: 0}
   projectile: {fileID: 4338534801041453041, guid: a2309f29ab17a7743a72b2b2ad917cda,
     type: 3}

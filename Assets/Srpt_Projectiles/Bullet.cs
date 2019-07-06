@@ -18,7 +18,8 @@ public class Bullet : Projectile
 
         if (isCaltrop) GetComponent<Rigidbody2D>().AddForce(dir * moveSpeed * 10);
 
-        Destroy(gameObject, lifetime);
+        if (lifetime > -1)
+            Destroy(gameObject, lifetime);
     }
 
     private void Update()

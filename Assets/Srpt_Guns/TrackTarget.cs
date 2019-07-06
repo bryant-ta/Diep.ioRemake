@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class TrackTarget : MonoBehaviour
 {
     public GameObject obj;  // Thing to rotate
+    public GameObject defaultTarget;
 
     GameObject target;      // Thing currently tracking
     List<GameObject> seen;
@@ -16,12 +17,41 @@ public class TrackTarget : MonoBehaviour
     void Awake()
     {
         seen = new List<GameObject>();
-        //target = GameObject.FindGameObjectWithTag("Player");
+        if (seen.Count != 0) target = seen[0];
     }
 
+    float nextCleanUp;
     private void Update()
     {
-        if (target == null) return;
+        // Clean up null references in seen List
+        if (Time.time > nextCleanUp)
+        {
+            nextCleanUp = Time.time + 1;
+            for (int i = seen.Count - 1; i > -1; i--)
+            {
+                if (seen[i] == null)
+                    seen.RemoveAt(i);
+            }
+        }
+
+        // Retarget to next obj if current target was destroyed/removed
+        if (target == null)
+        {
+            for (int i = 0; i < seen.Count; i++)
+            {
+                if (seen[i] != null)
+                {
+                    target = seen[i];
+                    break;
+                }
+            }
+
+            if (target == null)
+            {
+                if (defaultTarget != null) target = defaultTarget;
+                else return;
+            }
+        }
 
         // Rotate gun        
         Vector2 shootDir = target.transform.position - transform.position;
@@ -75,5 +105,24 @@ public class TrackTarget : MonoBehaviour
                 obj.transform.localRotation = Quaternion.Euler(0, 0, 0);
             }
         }
+    }
+
+    public void SetTarget(GameObject target)
+    {
+        this.target = target;
+    }
+
+    public void ResetTarget()
+    {
+        for (int i = 0; i < seen.Count; i++)
+        {
+            if (seen[i] != null)
+            {
+                target = seen[i];
+                break;
+            }
+        }
+
+        target = defaultTarget;
     }
 }

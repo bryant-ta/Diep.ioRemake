@@ -10,8 +10,6 @@ public class Drone : Bullet
     TrackTarget tt;
     GameObject mouseObj;
 
-    int flip = 1;
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -23,7 +21,6 @@ public class Drone : Bullet
 
     void Update()
     {
-        flip = 1;
         if (Input.GetButton("Fire1"))
         {
             mouseObj.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z));
@@ -31,15 +28,16 @@ public class Drone : Bullet
         }
         else if (Input.GetButton("Fire2"))
         {
-            flip = -1;
             mouseObj.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z));
             tt.SetTarget(mouseObj);
+            tt.Flip(true);
         }
         else if (Input.GetButtonUp("Fire1") || Input.GetButtonUp("Fire2"))
         {
             tt.ResetTarget();
+            tt.Flip(false);
         }
-        rb.AddForce(transform.right * moveSpeed * flip);
+        rb.AddForce(transform.right * moveSpeed);
     }
 
     private void OnCollisionEnter2D(Collision2D col)

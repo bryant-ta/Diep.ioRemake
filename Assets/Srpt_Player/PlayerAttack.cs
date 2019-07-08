@@ -19,7 +19,7 @@ public class PlayerAttack : MonoBehaviour
     Camera viewCamera;
 
     bool doFireDelay;
-    string[] tanksWithFireDelay = { "Twin", "Spread_Shot", "Predator", "Streamliner", "Gunner", "Auto_Gunner"};
+    string[] tanksWithFireDelay = { "Twin", "Triplet", "Twin Flank", "Spread Shot", "Predator", "Streamliner", "Gunner", "Auto Gunner"};
 
     private void Start()
     {
@@ -54,7 +54,7 @@ public class PlayerAttack : MonoBehaviour
         tank.transform.rotation = Quaternion.Euler(0, 0, ang);
     }
 
-    void Equip(GameObject upgrade)
+    public void Equip(GameObject upgrade)
     {
         if (tank != null) Destroy(tank);
         guns.Clear();
@@ -89,7 +89,6 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator FireMyGuns()
     {
-        //float fireDelay = guns[0].getAtt(guns[0].baseCooldown, priCD)/2;
         if (tank.name.Contains("Spread_Shot"))
         {
             guns[0].Fire(priDmg, priCD, priAcc, priRec, priPSpd, 1);
@@ -105,8 +104,10 @@ public class PlayerAttack : MonoBehaviour
         {
             foreach (Gun gun in guns)
             {
+                float fireDelay = gun.getAtt(gun.baseCooldown, priCD)*Random.Range(.5f,1.5f);
                 gun.Fire(priDmg, priCD, priAcc, priRec, priPSpd, 1);
-                yield return new WaitForSeconds(.2f);
+                yield return new WaitForSeconds(fireDelay);
+                //yield return new WaitForSeconds(fireDelay);
             }
         }
     }

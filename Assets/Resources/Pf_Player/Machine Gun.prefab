@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5897935420160767451}
   - component: {fileID: 7106698442420400634}
   m_Layer: 0
-  m_Name: Machine_Gun
+  m_Name: Machine Gun
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

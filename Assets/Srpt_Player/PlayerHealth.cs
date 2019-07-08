@@ -14,8 +14,7 @@ public class PlayerHealth : Damageable
         hpBar = GameObject.Find("HPBar").GetComponent<Image>();
         hpTxt = GameObject.Find("HPTxt").GetComponent<Text>();
 
-        hpBar.fillAmount = getHP() / getMaxHP();
-        hpTxt.text = getHP() + "/" + getMaxHP();
+        UpdateHP();
     }
 
     //float startRegen;
@@ -29,8 +28,13 @@ public class PlayerHealth : Damageable
     public new int DoDamage(int amt)
     {
         int ret = base.DoDamage(amt);
+        UpdateHP();
+        return ret;
+    }
+
+    public void UpdateHP()
+    {
         hpBar.fillAmount = ((float)getHP() / (float)getMaxHP());
         hpTxt.text = getHP() + "/" + getMaxHP();
-        return ret;
     }
 }

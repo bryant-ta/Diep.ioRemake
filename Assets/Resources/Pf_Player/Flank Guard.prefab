@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2040228994421105297}
   - component: {fileID: 3398499068044273328}
   m_Layer: 0
-  m_Name: Flank_Guard
+  m_Name: Flank Guard
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

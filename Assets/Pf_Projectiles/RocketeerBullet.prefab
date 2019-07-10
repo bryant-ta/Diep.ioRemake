@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 728dbce32d4fdad4db4c2b8491bfea14, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9607844, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -132,6 +132,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b6b8735d2f0c044948d8dff8902cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentGun: {fileID: 0}
+  fromPlayer: 0
+  shotAngle: 0
+  dmg: 0
+  moveSpeed: 0
+  lifetime: 0
+  isCaltrop: 0
   guns:
   - {fileID: 2790094703336975222}
   - {fileID: 2790094703669651411}
@@ -251,17 +258,17 @@ PrefabInstance:
     - target: {fileID: 6327637527975320792, guid: e09d70691d360094ca15e253b3fc7ebf,
         type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.6509804
       objectReference: {fileID: 0}
     - target: {fileID: 6327637527975320792, guid: e09d70691d360094ca15e253b3fc7ebf,
         type: 3}
       propertyPath: m_Color.g
-      value: 1
+      value: 0.6509804
       objectReference: {fileID: 0}
     - target: {fileID: 6327637527975320792, guid: e09d70691d360094ca15e253b3fc7ebf,
         type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0.6509804
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e09d70691d360094ca15e253b3fc7ebf, type: 3}
@@ -378,17 +385,17 @@ PrefabInstance:
     - target: {fileID: 6327637527975320792, guid: e09d70691d360094ca15e253b3fc7ebf,
         type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.6509804
       objectReference: {fileID: 0}
     - target: {fileID: 6327637527975320792, guid: e09d70691d360094ca15e253b3fc7ebf,
         type: 3}
       propertyPath: m_Color.g
-      value: 1
+      value: 0.6509804
       objectReference: {fileID: 0}
     - target: {fileID: 6327637527975320792, guid: e09d70691d360094ca15e253b3fc7ebf,
         type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0.6509804
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e09d70691d360094ca15e253b3fc7ebf, type: 3}

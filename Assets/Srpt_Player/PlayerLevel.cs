@@ -66,7 +66,7 @@ public class PlayerLevel : MonoBehaviour
             nextExp = nextExp + 7;
             level++;
             statUpPoints++;
-            if (level == 10 || level == 20 || level == 30)
+            if (level == 2 || level == 3 || level == 4)
             {
                 SetupUpgradeButtons();
             }
@@ -133,7 +133,6 @@ public class PlayerLevel : MonoBehaviour
         {
             b.gameObject.SetActive(false);
         }
-        print(1);
         GetClassUpgrades(pa.tank.name);
         for (int i = 0; i < classUpVal.Count; i++)
         {
@@ -141,7 +140,6 @@ public class PlayerLevel : MonoBehaviour
             classUpButtons[i].gameObject.SetActive(true);
             classUpButtons[i].GetComponentInChildren<Text>().text = classUpVal[i];
         }
-        print(classUpVal);
     }
 
     // Huge
